@@ -4,7 +4,6 @@ const sequelize = require('../config/database');
 const User = require('./user');
 const Folder = require('./folder');
 const File = require('./file');
-const Session = require('./session');
 
 //-- DEFINE RELATIONSHIPS --//
 
@@ -24,16 +23,11 @@ File.belongsTo(User, { foreignKey: 'user_id' });
 Folder.hasMany(File, { foreignKey: 'parent_folder_id' });
 File.belongsTo(Folder, { foreignKey: 'parent_folder_id' });
 
-// User <--> Session Relationship (One-to-Many)
-User.hasMany(Session, { foreignKey: 'user_id' });
-Session.belongsTo(User, { foreignKey: 'user_id' });
-
 
 // Export everything for use in your application
 module.exports = {
     sequelize,
     User,
     Folder,
-    File,
-    Session
+    File
 };
