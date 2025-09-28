@@ -1,22 +1,16 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.post('/upload', (req, res, next) => {
-    res.send('upload new file to server');
-})
+const isAuth = require('../middlewares/isAuth');
+const upload = require('../middleware/upload');
+const fileController = require('../controllers/fileController');
 
-router.get('/:fileId', (req, res, next) => {
-    res.send('get a file by id');
-})
+router.post('/upload', isAuth, upload.array('myFiles', 5), fileController.uploadFiles);
+router.get('/:fileId', isAuth, fileController.getFileById);
+router.get('/:fileId/download', isAuth, fileController.downloadFile);
 
 
-router.get('/:fileId/download', (req, res, next) => {
-    res.send('download a file by id');
-})
+router.delete('/:fileId', isAuth, fileController.deleteFile);
 
-router.delete('/:fileId', (req, res, next) => {
-    res.send('delete a file');
-})
 
 module.exports = router;
