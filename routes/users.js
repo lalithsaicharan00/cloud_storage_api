@@ -1,21 +1,17 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.post('/', (req, res, next) => {
-    res.send('this is users route');
-    console.log(router);
-})
+const userController = require('../controllers/userController');
+const { profilePicUploader } = require('../middlewares/upload')
 
-router.get('/:userId', (req, res, next) => {
-    res.send(`this is users route user ID is ${req.params.userId}`);
-    console.log(router);
-})
 
-router.delete('/:userId', (req, res, next) => {
-    res.send(`this is delete user route ID : ${req.params.userId}`);
-    console.log(router);
-})
+router.post('/', userController.registerUser);
+router.get('/:userId', userController.getUserProfile);
+router.put('/me', isAuth, profilePicUploader.single('profileImage'), userController.updateMyProfile);
+router.put('/me/email', isAuth, userController.requestEmailChange);
+router.post('/me/email/resend-code', isAuth, resendOtpLimiter, userController.resendEmailChangeCode);
+router.post('/me/email/verify', isAuth, userController.verifyEmailChange);
+router.delete('/', isAuth, userController.deleteMyAccount);
+
 
 module.exports = router;
-

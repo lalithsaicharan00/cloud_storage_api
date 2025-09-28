@@ -38,6 +38,11 @@ const File = sequelize.define('File', {
         type: DataTypes.DATE,
         allowNull: true,
         field: 'deleted_at'
+    },
+    publicId: {
+        type: DataTypes.STRING,
+        allowNull: true, // Should be false for new records
+        field: 'public_id'
     }
 }, {
     tableName: 'files',
@@ -47,3 +52,4 @@ const File = sequelize.define('File', {
 });
 
 module.exports = File;
+

@@ -35,6 +35,7 @@ const uploadFiles = async (req, res) => {
             name: result.originalname,
             uuid: uuidv4(),
             url: result.secure_url,
+            publicId: result.public_id,
             type: result.resource_type,
             size: result.bytes,
             userId: req.session.userId,

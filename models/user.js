@@ -37,6 +37,46 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING(500),
         allowNull: true, // It can be null
         field: 'profile_image_url'
+    },
+    verificationCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'verification_code'
+    },
+    verificationCodeExpiresAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'verification_code_expires_at'
+    },
+    passwordResetCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'password_reset_code'
+    },
+    passwordResetExpiresAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'password_reset_expires_at'
+    },
+    pendingEmail: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'pending_email'
+    },
+    emailChangeCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'email_change_code'
+    },
+    emailChangeExpiresAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'email_change_expires_at'
+    },
+    profileImagePublicId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        field: 'profile_image_public_id'
     }
 }, {
     tableName: 'users',

@@ -30,4 +30,20 @@ const upload = multer({
     }
 });
 
-module.exports = upload;
+const profilePicUploader = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+        // Only allow image file types
+        if (file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type, only images are allowed!'), false);
+        }
+    },
+    limits: { fileSize: 2 * 1024 * 1024 } // 2MB limit for profile pictures
+});
+
+module.exports = {
+    upload, // for generic files
+    profilePicUploader // for profile pics
+};
