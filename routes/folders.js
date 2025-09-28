@@ -1,17 +1,13 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.post('/', (req, res, next) => {
-    res.send('create new folder route');
-})
+const isAuth = require('../middlewares/isAuth');
+const folderController = require('../controllers/folderController');
 
-router.get('/:folderId', (req, res, next) => {
-    res.send(`get a folder of ID : ${req.params.folderId}`);
-})
 
-router.delete('/:folderId', (req, res, next) => {
-    res.send(`delete a folder ${req.params.folderId}`);
-})
+router.post('/', isAuth, folderController.createFolder);
+router.get('/:folderId', isAuth, folderController.getFolderById);
+router.delete('/:folderId', isAuth, folderController.deleteFolder);
+
 
 module.exports = router;
