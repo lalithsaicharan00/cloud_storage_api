@@ -40,6 +40,28 @@ const createFolder = async (req, res) => {
     }
 };
 
+const getRootContents = async (req, res) => {
+    try {
+        const userId = req.session.userId;
+
+
+        const [folders, files] = await Promise.all([
+            Folder.findAll({
+                where: { userId: userId, parentFolderId: null, isDeleted: false }
+            }),
+            File.findAll({
+                where: { userId: userId, parentFolderId: null, isDeleted: false }
+            })
+        ]);
+
+        res.status(200).json({ folders, files });
+
+    } catch (error) {
+        console.error('Error fetching root contents:', error);
+        res.status(500).json({ message: 'An internal server error occurred.' });
+    }
+};
+
 
 const getFolderById = async (req, res) => {
     try {
@@ -144,6 +166,7 @@ const deleteFolder = async (req, res) => {
 
 module.exports = {
     createFolder,
+    getRootContents,
     getFolderById,
     deleteFolder
 };
