@@ -2,7 +2,7 @@ const { User } = require('../models');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 const { Sequelize } = require('sequelize');
-const { sendVerificationEmail } = require('../utils/emailSender');
+const { sendVerificationEmail, sendEmailChangeOtp } = require('../utils/emailSender');
 const { generateOtp } = require('../utils/otpService');
 const cloudinary = require('../config/cloudinary')
 
